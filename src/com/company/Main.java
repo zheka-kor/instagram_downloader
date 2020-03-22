@@ -45,7 +45,7 @@ public class Main {
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         System.out.println("Write dowload path into concole. Example (folder should exist!): C:\\downloads\\pucture.jpg");
         String userPath = bufferedReader.readLine();
-        System.out.println("The file saced to " +"\n"+userPath);
+        System.out.println("The file saved to " +"\n"+userPath);
         return userPath;
     }
 
