@@ -3,7 +3,10 @@ import java.io.*;
 import java.net.URL;
 import java.lang.String;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.Scanner;
 
 import org.jsoup.Jsoup;
@@ -11,13 +14,17 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 
+
 public class Main {
+    static String fileName;
+    static String fileLocation="fileLocation"+fileName;
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
         String userData = getUserData ();
         String path = createDowloadPath();
         String element = getElementUrl(userData);
+
 
         saveToFile(element,path);
     }
@@ -36,9 +43,9 @@ public class Main {
         InputStream inputUserPath = System.in;
         Reader inputStreamReader = new InputStreamReader(inputUserPath);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        System.out.println("Write dowload path into concole. Example: C:\\downloads\\pucture.jpg");
+        System.out.println("Write dowload path into concole. Example (folder should exist!): C:\\downloads\\pucture.jpg");
         String userPath = bufferedReader.readLine();
-        System.out.println("Your path is " +"\n"+userPath);
+        System.out.println("The file saced to " +"\n"+userPath);
         return userPath;
     }
 
@@ -53,9 +60,8 @@ public class Main {
 
     public static void saveToFile (String url, String FILE_TO ) throws IOException, InterruptedException{
         //Метод открывает поток по прямому url и записывает в файл на диске
-        BufferedInputStream picture = new BufferedInputStream(new URL(url).openStream());
-        Files.copy(picture, Paths.get(FILE_TO));
-        picture.close();
+            BufferedInputStream picture = new BufferedInputStream(new URL(url).openStream());
+            Files.copy(picture, Paths.get(FILE_TO));
+            picture.close();
     }
-
 }
