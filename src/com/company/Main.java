@@ -3,8 +3,6 @@ import java.io.*;
 import java.net.URL;
 import java.lang.String;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,20 +11,30 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import static com.company.VideoDownloader.*;
 
 
 public class Main {
-    static String fileName;
-    static String fileLocation="fileLocation"+fileName;
+
+
+
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        Scanner choice = new Scanner(System.in);
+        System.out.println("Write into console 1 for download picture and 2 for download video. Press enter ");
+        Integer userChoise = choice.nextInt();
 
-        String userData = getUserData ();
-        String path = createDowloadPath();
-        String element = getElementUrl(userData);
-
-
-        saveToFile(element,path);
+        if (userChoise == 1) {
+            String userData = getUserData();
+            String path = createDowloadPath();
+            String element = getElementUrl(userData);
+            saveToFile(element, path);
+        } else if (userChoise == 2) {
+            String userVideo = getUserDataForVideo();
+            String videoPath = createVideoDowloadPath();
+            String videoElement = getVideoElementUrl(userVideo);
+            saveVideoFile(videoElement, videoPath);
+        }
     }
 
     public static String getUserData () throws IOException, InterruptedException{
@@ -65,3 +73,4 @@ public class Main {
             picture.close();
     }
 }
+
